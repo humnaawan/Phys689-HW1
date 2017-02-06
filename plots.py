@@ -41,6 +41,38 @@ def scaleFactorPlot(a, t, H0, factor_sToGyr, xMax= 100, yMax= 5,
         os.chdir(workDir)
     plt.show()
 
+def adotPlot(adot, t, H0, factor_sToGyr, xMax= 100, yMin= 0, yMax= 5,
+             plotTitle= '',
+             savePlots= False, outDir= None, filenameTag= ''):
+    # t, H0 in seconds
+    # adot, t are dictionaries
+    plt.clf()
+    for i, key in enumerate(adot):
+        tscaled= t[key]/factor_sToGyr   # now in Gyr
+        plt.plot(tscaled, adot[key]*factor_sToGyr, '.', label= key, color= colors[i])
+        plt.plot(tscaled, adot[key]*factor_sToGyr, color= colors[i])
+    plt.xlim(0, xMax)
+    plt.ylim(yMin, yMax)
+    t0= 1/H0  # s
+    t0= t0/factor_sToGyr # Gyr
+    
+    plt.plot([t0, t0], [yMin,yMax], label= '$Today$', color= fixedColor)
+    plt.plot([0, xMax], [0., 0.], ':', color= fixedColor)
+    plt.title(plotTitle, fontsize= axisLabelFontSize)
+    plt.xlabel(r'$t \ (Gyr)$', fontsize= axisLabelFontSize)
+    plt.ylabel('$\dot{a} \ (Gyr^{-1})$', fontsize= axisLabelFontSize)
+    plt.tick_params(axis='x', labelsize=tickLabelFontSize)
+    plt.tick_params(axis='y', labelsize=tickLabelFontSize)
+    plt.legend(fontsize= legendFontSize, loc= 1)#bbox_to_anchor= (0.7, 1.7))
+    
+    fig= plt.gcf()
+    fig.set_size_inches(12,6)
+    if savePlots:
+        workDir= os.getcwd()
+        os.chdir(outDir)
+        plt.savefig('%sadotPlot.pdf'%(filenameTag),bbox_inches='tight', format= 'pdf')
+        os.chdir(workDir)
+    plt.show()
 
 def densityPlot(rhoTotal, t, H0, factor_sToGyr, xMax= 40, yMax= 30,
                 plotTitle= '',
