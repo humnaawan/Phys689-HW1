@@ -10,7 +10,7 @@ colors= ['r', 'g', 'b', 'm', 'y', 'c']
 fixedColor= 'k'
 
 def scaleFactorPlot(a, t, H0, factor_sToGyr, xMax= 100, yMax= 5,
-                    plotTitle= '',
+                    plotTitle= '', legendloc= 4,
                     savePlots= False, outDir= None, filenameTag= ''):
     # t, H0 in seconds
     # a, t are dictionaries
@@ -30,7 +30,7 @@ def scaleFactorPlot(a, t, H0, factor_sToGyr, xMax= 100, yMax= 5,
     plt.ylabel('$a$', fontsize= axisLabelFontSize)
     plt.tick_params(axis='x', labelsize=tickLabelFontSize)
     plt.tick_params(axis='y', labelsize=tickLabelFontSize)
-    plt.legend(fontsize= legendFontSize, loc= 4)#bbox_to_anchor= (0.7, 1.7))
+    plt.legend(fontsize= legendFontSize, loc= legendloc)#bbox_to_anchor= (0.7, 1.7))
     
     fig= plt.gcf()
     fig.set_size_inches(12,6)
@@ -42,7 +42,7 @@ def scaleFactorPlot(a, t, H0, factor_sToGyr, xMax= 100, yMax= 5,
     plt.show()
 
 def adotPlot(adot, t, H0, factor_sToGyr, xMax= 100, yMin= 0, yMax= 5,
-             plotTitle= '',
+             plotTitle= '', legendloc= None,
              savePlots= False, outDir= None, filenameTag= ''):
     # t, H0 in seconds
     # adot, t are dictionaries
@@ -63,8 +63,10 @@ def adotPlot(adot, t, H0, factor_sToGyr, xMax= 100, yMin= 0, yMax= 5,
     plt.ylabel('$\dot{a} \ (Gyr^{-1})$', fontsize= axisLabelFontSize)
     plt.tick_params(axis='x', labelsize=tickLabelFontSize)
     plt.tick_params(axis='y', labelsize=tickLabelFontSize)
-    plt.legend(fontsize= legendFontSize, loc= 1)#bbox_to_anchor= (0.7, 1.7))
-    
+    if legendloc is None:
+        plt.legend(fontsize= legendFontSize, bbox_to_anchor= (1.0, .9))
+    else:
+        plt.legend(fontsize= legendFontSize, loc= legendloc)
     fig= plt.gcf()
     fig.set_size_inches(12,6)
     if savePlots:
@@ -82,7 +84,7 @@ def densityPlot(rhoTotal, t, H0, factor_sToGyr, xMax= 40, yMax= 30,
         tscaled= t[key]/factor_sToGyr   # now in Gyr
         plt.plot(tscaled, rhoTotal[key], '.', label= key, color= colors[i])
         plt.plot(tscaled, rhoTotal[key], color= colors[i])
-    plt.xlim(0, xMax)   
+    plt.xlim(0, xMax)
     plt.ylim(0, yMax)
     t0= 1/H0  # s
     t0= t0/factor_sToGyr # Gyr
@@ -92,7 +94,7 @@ def densityPlot(rhoTotal, t, H0, factor_sToGyr, xMax= 40, yMax= 30,
     plt.ylabel(r'$\rho_{tot}/\rho_{crit, 0}$', fontsize= axisLabelFontSize)
     plt.tick_params(axis='x', labelsize=tickLabelFontSize)
     plt.tick_params(axis='y', labelsize=tickLabelFontSize)
-    plt.legend(loc=0, fontsize= legendFontSize)
+    plt.legend(loc=1, fontsize= legendFontSize)
     
     fig= plt.gcf()
     fig.set_size_inches(12,6)
@@ -120,7 +122,7 @@ def HubbleConstantPlot(a, adot, t, H0, factor_sToGyr, xMax= 40, yMax= 300,
     t0= 1/H0  # s
     t0= t0/factor_sToGyr # Gyr
     plt.plot([t0, t0], [0.,yMax], label= '$Today$', color= fixedColor)
-    plt.plot([0, xMax], [H0*3.086*10**19, H0*3.086*10**19], color= fixedColor,
+    plt.plot([0, xMax], [H0*3.086*10**19, H0*3.086*10**19], '-.', color= fixedColor,
              label= '$Input \ H_0: %s \ (km/s/Mpc)$'%(H0*3.086*10**19))
     plt.title(plotTitle, fontsize= axisLabelFontSize)
     plt.xlabel(r'$t \ (Gyr)$', fontsize= axisLabelFontSize)
