@@ -7,6 +7,7 @@ axisLabelFontSize= 18
 tickLabelFontSize= 16
 
 def scaleFactorPlot(a, t, H0, factor_sToGyr, xMax= 100, yMax= 5,
+                    plotTitle= '',
                     savePlots= False, outDir= None, filenameTag= ''):
     # t, H0 in seconds
     # a, t are dictionaries
@@ -20,7 +21,8 @@ def scaleFactorPlot(a, t, H0, factor_sToGyr, xMax= 100, yMax= 5,
     t0= 1/H0  # s
     t0= t0/factor_sToGyr # Gyr
     
-    plt.plot([t0, t0], [0.,yMax], label= '$Today$')    
+    plt.plot([t0, t0], [0.,yMax], label= '$Today$')
+    plt.title(plotTitle, fontsize= axisLabelFontSize)
     plt.xlabel(r'$t \ (Gyr)$', fontsize= axisLabelFontSize)
     plt.ylabel('$a$', fontsize= axisLabelFontSize)
     plt.tick_params(axis='x', labelsize=tickLabelFontSize)
@@ -38,6 +40,7 @@ def scaleFactorPlot(a, t, H0, factor_sToGyr, xMax= 100, yMax= 5,
 
 
 def densityPlot(rhoTotal, t, H0, factor_sToGyr, xMax= 40, yMax= 30,
+                plotTitle= '',
                 savePlots= False, outDir= None, filenameTag= ''):
     plt.clf()
     for key in rhoTotal:
@@ -49,6 +52,7 @@ def densityPlot(rhoTotal, t, H0, factor_sToGyr, xMax= 40, yMax= 30,
     t0= 1/H0  # s
     t0= t0/factor_sToGyr # Gyr
     plt.plot([t0, t0], [0.,yMax], label= '$Today$')
+    plt.title(plotTitle, fontsize= axisLabelFontSize)
     plt.xlabel(r'$t \ (Gyr)$', fontsize= axisLabelFontSize)
     plt.ylabel(r'$\rho_{tot}/\rho_{crit, 0}$', fontsize= axisLabelFontSize)
     plt.tick_params(axis='x', labelsize=tickLabelFontSize)
@@ -66,6 +70,7 @@ def densityPlot(rhoTotal, t, H0, factor_sToGyr, xMax= 40, yMax= 30,
 
 
 def HubbleConstantPlot(a, adot, t, H0, factor_sToGyr, xMax= 40, yMax= 300,
+                       plotTitle= '',
                        savePlots= False, outDir= None, filenameTag= ''):
     H= {}   # 1/s
     plt.clf()
@@ -80,7 +85,7 @@ def HubbleConstantPlot(a, adot, t, H0, factor_sToGyr, xMax= 40, yMax= 300,
     t0= t0/factor_sToGyr # Gyr
     plt.plot([t0, t0], [0.,yMax], label= '$Today$')
     plt.plot([0, xMax], [H0*3.086*10**19, H0*3.086*10**19], 'k', label= '$Input \ H_0: %s \ (km/s/Mpc)$'%(H0*3.086*10**19))
-    
+    plt.title(plotTitle, fontsize= axisLabelFontSize)
     plt.xlabel(r'$t \ (Gyr)$', fontsize= axisLabelFontSize)
     plt.ylabel(r'$H(t) (km/s/Mpc)$', fontsize= axisLabelFontSize)
     plt.tick_params(axis='x', labelsize=tickLabelFontSize)
