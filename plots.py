@@ -1,11 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 legendFontSize= 14
 axisLabelFontSize= 18
 tickLabelFontSize= 16
 
-def scaleFactorPlot(a, t, H0, factor_sToGyr, xMax= 100, yMax= 5):
+def scaleFactorPlot(a, t, H0, factor_sToGyr, xMax= 100, yMax= 5,
+                    savePlots= False, outDir= None, filenameTag= ''):
     # t, H0 in seconds
     # a, t are dictionaries
     plt.clf()
@@ -27,10 +29,16 @@ def scaleFactorPlot(a, t, H0, factor_sToGyr, xMax= 100, yMax= 5):
     
     fig= plt.gcf()
     fig.set_size_inches(12,6)
+    if savePlots:
+        workDir= os.getcwd()
+        os.chdir(outDir)
+        plt.savefig('%sscaleFactorPlot.pdf'%(filenameTag),bbox_inches='tight', format= 'pdf')
+        os.chdir(workDir)
     plt.show()
 
 
-def densityPlot(rhoTotal, t, H0, factor_sToGyr, xMax= 40, yMax= 30):
+def densityPlot(rhoTotal, t, H0, factor_sToGyr, xMax= 40, yMax= 30,
+                savePlots= False, outDir= None, filenameTag= ''):
     plt.clf()
     for key in rhoTotal:
         tscaled= t[key]/factor_sToGyr   # now in Gyr
@@ -49,10 +57,16 @@ def densityPlot(rhoTotal, t, H0, factor_sToGyr, xMax= 40, yMax= 30):
     
     fig= plt.gcf()
     fig.set_size_inches(12,6)
+    if savePlots:
+        workDir= os.getcwd()
+        os.chdir(outDir)
+        plt.savefig('%sdensityPlot.pdf'%(filenameTag),bbox_inches='tight', format= 'pdf')
+        os.chdir(workDir)
     plt.show()
 
 
-def HubbleConstantPlot(a, adot, t, H0, factor_sToGyr, xMax= 40, yMax= 300):
+def HubbleConstantPlot(a, adot, t, H0, factor_sToGyr, xMax= 40, yMax= 300,
+                       savePlots= False, outDir= None, filenameTag= ''):
     H= {}   # 1/s
     plt.clf()
     for key in a:
@@ -75,6 +89,11 @@ def HubbleConstantPlot(a, adot, t, H0, factor_sToGyr, xMax= 40, yMax= 300):
     
     fig= plt.gcf()
     fig.set_size_inches(12,6)
+    if savePlots:
+        workDir= os.getcwd()
+        os.chdir(outDir)
+        plt.savefig('%sHubbleConstantPlot.pdf'%(filenameTag),bbox_inches='tight', format= 'pdf')
+        os.chdir(workDir)
     plt.show()
 
 
