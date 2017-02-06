@@ -59,7 +59,7 @@ def totDensity(a, Omega_M0, Omega_rad0, Omega_DE0, w):
     # returns rho/rho_crit
     return Omega_M0*a**-3.+Omega_rad0*a**-4.+ Omega_DE0*a**(-3.*(1+w))
 
-def universeAge(a, H0, Omega_M0, Omega_rad0, Omega_DE0, w, factor_sToGyr):
+def universeAge(a, a0, H0, Omega_M0, Omega_rad0, Omega_DE0, w, factor_sToGyr):
     import scipy.integrate as sp
     
     def dt(a, key): 
@@ -68,6 +68,6 @@ def universeAge(a, H0, Omega_M0, Omega_rad0, Omega_DE0, w, factor_sToGyr):
         return 1/dadt
 
     for key in a:
-        print 't0 for %s:\n%f (Gyrs)\n'%(key, sp.quad(dt, 0., 1., args= (key,))[0]/factor_sToGyr)
+        print 't0 for %s:\n%f (Gyrs)\n'%(key, sp.quad(dt, 0., a0, args= (key,))[0]/factor_sToGyr)
 
     print 't0 using H0 given (Gyrs): %s' %(1./(H0*factor_sToGyr)) 
