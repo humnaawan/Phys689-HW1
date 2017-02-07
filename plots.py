@@ -37,7 +37,7 @@ def scaleFactorPlot(a, t, H0, factor_sToGyr, xMax= 100, yMax= 5,
     if savePlots:
         workDir= os.getcwd()
         os.chdir(outDir)
-        plt.savefig('%sscaleFactorPlot.pdf'%(filenameTag),bbox_inches='tight', format= 'pdf')
+        plt.savefig('%sscaleFactorPlot.eps'%(filenameTag),bbox_inches='tight', format= 'eps')
         os.chdir(workDir)
     plt.show()
 
@@ -72,7 +72,7 @@ def adotPlot(adot, t, H0, factor_sToGyr, xMax= 100, yMin= 0, yMax= 5,
     if savePlots:
         workDir= os.getcwd()
         os.chdir(outDir)
-        plt.savefig('%sadotPlot.pdf'%(filenameTag),bbox_inches='tight', format= 'pdf')
+        plt.savefig('%sadotPlot.eps'%(filenameTag),bbox_inches='tight', format= 'eps')
         os.chdir(workDir)
     plt.show()
 
@@ -101,7 +101,7 @@ def densityPlot(rhoTotal, t, H0, factor_sToGyr, xMax= 40, yMax= 30,
     if savePlots:
         workDir= os.getcwd()
         os.chdir(outDir)
-        plt.savefig('%sdensityPlot.pdf'%(filenameTag),bbox_inches='tight', format= 'pdf')
+        plt.savefig('%sdensityPlot.eps'%(filenameTag),bbox_inches='tight', format= 'eps')
         os.chdir(workDir)
     plt.show()
 
@@ -136,7 +136,7 @@ def HubbleConstantPlot(a, adot, t, H0, factor_sToGyr, xMax= 40, yMax= 300,
     if savePlots:
         workDir= os.getcwd()
         os.chdir(outDir)
-        plt.savefig('%sHubbleConstantPlot.pdf'%(filenameTag),bbox_inches='tight', format= 'pdf')
+        plt.savefig('%sHubbleConstantPlot.eps'%(filenameTag),bbox_inches='tight', format= 'eps')
         os.chdir(workDir)
     plt.show()
 
